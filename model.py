@@ -1,6 +1,8 @@
 # train_model.py
 import pickle
 import numpy as np
+import sys
+import sklearn
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
@@ -18,3 +20,7 @@ with open("linear_model.pkl", "wb") as f:
     pickle.dump(model, f)
 
 print("✅ Model trained and saved as linear_model.pkl")
+
+print("Python version:", sys.version)
+print("NumPy version:", np.__version__)
+print("scikit-learn version:", sklearn.__version__)
