@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 import pickle
 import numpy as np
+import os
 
 # Load model
 with open("linear_model.pkl", "rb") as f:
@@ -20,4 +21,6 @@ def predict():
     return jsonify({"predicted_y": float(prediction[0][0]), "x": x_val})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
+
