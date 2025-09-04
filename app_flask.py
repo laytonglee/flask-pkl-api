@@ -20,7 +20,10 @@ def predict():
     prediction = model.predict(np.array([[x_val]]))
     return jsonify({"predicted_y": float(prediction[0][0]), "x": x_val})
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+@app.route("/")
+def home():
+    return "Flask PKL API is running!"
 
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Use Railway dynamic port
+    app.run(host="0.0.0.0", port=port, debug=True)  # Bind to 0.0.0.0
