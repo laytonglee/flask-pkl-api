@@ -1,4 +1,3 @@
-# app_flask.py
 from flask import Flask, request, jsonify
 import pickle
 import numpy as np
@@ -10,6 +9,10 @@ with open("linear_model.pkl", "rb") as f:
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return "Flask PKL API is running!"
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json
@@ -20,10 +23,6 @@ def predict():
     prediction = model.predict(np.array([[x_val]]))
     return jsonify({"predicted_y": float(prediction[0][0]), "x": x_val})
 
-@app.route("/")
-def home():
-    return "Flask PKL API is running!"
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Use Railway dynamic port
-    app.run(host="0.0.0.0", port=port, debug=True)  # Bind to 0.0.0.0
+    port = int(os.environ.get("PORT", 5000))  # Dynamic port for Railway
+    app.run(host="0.0.0.0", port=port, debug=True)
